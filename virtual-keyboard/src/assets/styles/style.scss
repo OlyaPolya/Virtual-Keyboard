@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+
+%font {
+  font-family: 'Neucha', cursive;
+}
+
+body {
+  @extend %font;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  border: 1px solid;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.title {
+  font-size: 25px;
+}
+
+.monitor {
+  width: 600px;
+  height: 300px;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.lineBtns {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  justify-content: center;
+}
+
+.key {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 17px;
+}
