@@ -112,17 +112,16 @@ function createBodyTemplate(numberOfBtnsInLines, numberOfLines) {
   const title = document.createElement('p');
   title.className = 'title';
   title.innerHTML = 'Персональный детский компьютер!';
-  const monitor = document.createElement('textarea');
-  monitor.className = 'monitor';
-  display.append(title, monitor);
+
+  const inputField = document.createElement('textarea');
+  inputField.className = 'inputField';
+  display.append(title, inputField);
 
   keyboard.append(...getBtnLine(numberOfLines, numberOfBtnsInLines));
   container.append(display, keyboard);
   wrapper.append(container);
   document.body.append(wrapper);
 }
-
-// const pickRussian = document.querySelectorAll('.ru');
 
 createBodyTemplate(numberOfBtnsInLine, numberOfLine);
 
@@ -135,16 +134,56 @@ document.onkeydown = function makeBtnPressed(event) {
   }, 200);
 };
 
+function addTextToField(symbol) {
+  const inh = document.querySelector('.inputField');
+  inh.innerHTML = symbol;
+}
+
+function getTextFromVirtualKeyboard(item) {
+  if (item.childNodes[0].classList.contains('hidden')) {
+    if (!item.childNodes[1].childNodes[0].classList.contains('hidden')) {
+      addTextToField(item.childNodes[1].childNodes[0].textContent);
+    }
+    if (!item.childNodes[1].childNodes[1].classList.contains('hidden')) {
+      addTextToField(item.childNodes[1].childNodes[1].textContent);
+    }
+    if (!item.childNodes[1].childNodes[2].classList.contains('hidden')) {
+      addTextToField(item.childNodes[1].childNodes[2].textContent);
+    }
+    if (!item.childNodes[1].childNodes[3].classList.contains('hidden')) {
+      addTextToField(item.childNodes[1].childNodes[3].textContent);
+    }
+  } else {
+    if (!item.childNodes[0].childNodes[0].classList.contains('hidden')) {
+      addTextToField(item.childNodes[0].childNodes[0].textContent);
+    }
+    if (!item.childNodes[0].childNodes[1].classList.contains('hidden')) {
+      addTextToField(item.childNodes[0].childNodes[1].textContent);
+    }
+    if (!item.childNodes[0].childNodes[2].classList.contains('hidden')) {
+      addTextToField(item.childNodes[0].childNodes[2].textContent);
+    }
+    if (!item.childNodes[0].childNodes[3].classList.contains('hidden')) {
+      addTextToField(item.childNodes[0].childNodes[3].textContent);
+    }
+  }
+}
+
 document.querySelectorAll('.key').forEach((item) => {
   item.addEventListener('click', () => {
     item.getAttribute('data');
     item.classList.add('press');
+    getTextFromVirtualKeyboard(item);
     setTimeout(() => {
       item.classList.remove('press');
     }, 200);
   });
 });
+/*
+function onkeyup(element) {
+  console.log(element);
+  document.getElementBy('inputField').textContent = element.target.value;
+}
+*/
 
-document.querySelectorAll('.key').onkeydown = function addTextToField(event) {
-  console.log(event);
-};
+// .addEventListener('keyup', onkeyup);
