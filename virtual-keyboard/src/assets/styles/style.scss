@@ -4,9 +4,13 @@
   font-family: 'Neucha', cursive;
 }
 
+html {
+  cursor: url('../img/cursor.png'), default;
+}
+
 body {
   @extend %font;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -63,4 +67,8 @@ body {
   height: 40px;
   border: 1px solid black;
   border-radius: 17px;
+}
+
+.press {
+  background-color: palevioletred;
 }

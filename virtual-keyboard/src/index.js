@@ -4,6 +4,8 @@ import 'normalize.css';
 import * as buttonMeaning from './assets/KeyboardLayout';
 
 const currenLanguage = 'ru';
+const numberOfBtnsInLine = [13, 13];
+const numberOfLine = numberOfBtnsInLine.length;
 
 function getButtonStatesEn(currentBtn, line) {
   const upper = 1;
@@ -64,6 +66,7 @@ function getListButton(numberOfBtnsInLines, line) {
   for (let i = 1; i <= numberOfBtnsInLines; i += 1) {
     const div = document.createElement('div');
     div.className = 'key';
+    div.setAttribute('data', Object.keys(buttonMeaning.codeOfBtnInLineRu[line][0])[i - 1]);
     const spanEn = document.createElement('span');
     spanEn.className = 'en';
     const spanRu = document.createElement('span');
@@ -120,20 +123,28 @@ function createBodyTemplate(numberOfBtnsInLines, numberOfLines) {
 }
 
 // const pickRussian = document.querySelectorAll('.ru');
-const numberOfBtnsInLines = [13, 13];
-const numberOfLines = numberOfBtnsInLines.length;
 
-createBodyTemplate(numberOfBtnsInLines, numberOfLines);
-// const eng = document.querySelectorAll('.en');
+createBodyTemplate(numberOfBtnsInLine, numberOfLine);
 
-/*
-document.addEventListener('DOMContentLoaded', () => {
-  const eng = document.querySelectorAll('.en');
-  const ru = document.querySelectorAll('.ru');
-  if (currenLanguage === 'ru') {
-    eng.classList.add('hidden');
-  } else {
-    ru.classList.add('hidden');
-  }
+document.onkeydown = function makeBtnPressed(event) {
+  //  console.log(event.code);
+  const pressedButton = document.querySelector(`[data='${event.code}']`);
+  pressedButton.classList.add('press');
+  setTimeout(() => {
+    pressedButton.classList.remove('press');
+  }, 200);
+};
+
+document.querySelectorAll('.key').forEach((item) => {
+  item.addEventListener('click', () => {
+    item.getAttribute('data');
+    item.classList.add('press');
+    setTimeout(() => {
+      item.classList.remove('press');
+    }, 200);
+  });
 });
-*/
+
+document.querySelectorAll('.key').onkeydown = function addTextToField(event) {
+  console.log(event);
+};
