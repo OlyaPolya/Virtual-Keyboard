@@ -4,7 +4,7 @@ import 'normalize.css';
 import * as buttonMeaning from './assets/KeyboardLayout';
 
 const currenLanguage = 'ru';
-const numberOfBtnsInLine = [13, 13];
+const numberOfBtnsInLine = [14, 13];
 const numberOfLine = numberOfBtnsInLine.length;
 
 function getButtonStatesEn(currentBtn, line) {
@@ -115,8 +115,9 @@ function createBodyTemplate(numberOfBtnsInLines, numberOfLines) {
 
   const inputField = document.createElement('textarea');
   inputField.className = 'inputField';
-  display.append(title, inputField);
+  inputField.autofocus = true;
 
+  display.append(title, inputField);
   keyboard.append(...getBtnLine(numberOfLines, numberOfBtnsInLines));
   container.append(display, keyboard);
   wrapper.append(container);
@@ -126,7 +127,7 @@ function createBodyTemplate(numberOfBtnsInLines, numberOfLines) {
 createBodyTemplate(numberOfBtnsInLine, numberOfLine);
 
 document.onkeydown = function makeBtnPressed(event) {
-  //  console.log(event.code);
+  event.preventDefault();
   const pressedButton = document.querySelector(`[data='${event.code}']`);
   pressedButton.classList.add('press');
   setTimeout(() => {
@@ -135,11 +136,44 @@ document.onkeydown = function makeBtnPressed(event) {
 };
 
 function addTextToField(symbol) {
-  const inh = document.querySelector('.inputField');
-  inh.innerHTML = symbol;
+  const inpitField = document.querySelector('.inputField');
+  if (symbol === 'Backspace') {
+    inpitField.innerHTML = inpitField.innerHTML.slice(0, -1);
+  } else if (symbol === 'Tab') {
+    inpitField.innerHTML += '    ';
+  } else {
+    inpitField.innerHTML += symbol;
+  }
+  inpitField.focus();
+  const selectionStart = inpitField.innerHTML.length;
+  const selectionEnd = inpitField.innerHTML.length;
+  console.log(selectionEnd);
+  inpitField.setSelectionRange(selectionStart, selectionEnd);
+  inpitField.onclick = () => {
+    // inpitField.setRangeText('ПРИВЕТ', inpitField.selectionStart, inpitField.selectionEnd, 'end');
+    inpitField.focus();
+    console.log('сработало');
+    console.log(inpitField.selectionEnd);
+    inpitField.setRangeText('ПРИВЕТ', inpitField.selectionStart, inpitField.selectionEnd, 'end');
+    console.log(inpitField.selectionEnd);
+    console.log(document.getElementsByClassName('inputField'));
+  };
 }
+/*
+document.querySelector('.inputField').onfocus = () => {
+  setTimeout(() => {
+    document.querySelector('.inputField').setSelectionRange(0, 1);
+  });
+};
+document.querySelector('textarea').addEventListener('focus', function thf() {
+  // this.select();
+  this.focus();
+  this.selectionStart = 10;
+  console.log(document.querySelector('.inputField'));
+});
+*/
 
-function getTextFromVirtualKeyboard(item) {
+function getSymbolFromVirtualKeyboard(item) {
   if (item.childNodes[0].classList.contains('hidden')) {
     if (!item.childNodes[1].childNodes[0].classList.contains('hidden')) {
       addTextToField(item.childNodes[1].childNodes[0].textContent);
@@ -173,17 +207,17 @@ document.querySelectorAll('.key').forEach((item) => {
   item.addEventListener('click', () => {
     item.getAttribute('data');
     item.classList.add('press');
-    getTextFromVirtualKeyboard(item);
+    getSymbolFromVirtualKeyboard(item);
     setTimeout(() => {
       item.classList.remove('press');
     }, 200);
   });
 });
-/*
-function onkeyup(element) {
-  console.log(element);
-  document.getElementBy('inputField').textContent = element.target.value;
-}
-*/
 
-// .addEventListener('keyup', onkeyup);
+document.onkeyup = function catchSymbolFromRealKeyboard(event) {
+  getSymbolFromVirtualKeyboard(document.querySelector(`[data='${event.code}']`));
+};
+
+document.querySelector('textarea').addEventListener('click', (event) => {
+  event.preventDefault();
+});
