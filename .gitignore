@@ -1,2 +1,2 @@
-virtual-keyboard/dist/
-virtual-keyboard/node_modules/
+virtual-keyboard/
+!virtual-keyboard/dist
