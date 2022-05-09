@@ -1,65 +1,3 @@
-export const codeOfBtnIn2LineEn = {
-  Tab: 'Tab',
-  KeyE: 'e',
-  KeyI: 'i',
-  KeyO: 'o',
-  KeyP: 'p',
-  KeyQ: 'q',
-  KeyR: 'r',
-  KeyT: 't',
-  KeyU: 'u',
-  KeyW: 'w',
-  KeyY: 'y',
-  BracketLeft: '[',
-  BracketRight: ']',
-};
-export const codeOfBtnIn2LineRu = {
-  Tab: 'Tab',
-  KeyE: 'у',
-  KeyI: 'ш',
-  KeyO: 'щ',
-  KeyP: 'з',
-  KeyQ: 'й',
-  KeyR: 'к',
-  KeyT: 'е',
-  KeyU: 'г',
-  KeyW: 'ц',
-  KeyY: 'н',
-  BracketLeft: 'х',
-  BracketRight: 'ъ',
-};
-export const codeOfBtnIn2LineEnShift = {
-  Tab: 'Tab',
-  KeyE: 'E',
-  KeyI: 'I',
-  KeyO: 'O',
-  KeyP: 'P',
-  KeyQ: 'Q',
-  KeyR: 'R',
-  KeyT: 'T',
-  KeyU: 'U',
-  KeyW: 'W',
-  KeyY: 'Y',
-  BracketLeft: '{',
-  BracketRight: '}',
-};
-export const codeOfBtnIn2LineRuShift = {
-  Tab: 'Tab',
-  KeyE: 'У',
-  KeyI: 'Ш',
-  KeyO: 'Щ',
-  KeyP: 'З',
-  KeyQ: 'Й',
-  KeyR: 'К',
-  KeyT: 'Е',
-  KeyU: 'Г',
-  KeyW: 'Ц',
-  KeyY: 'Н',
-  BracketLeft: 'Х',
-  BracketRight: 'Ъ',
-};
-// в объекте цифры указывают на номер ряда клавиатура, внутри 2 объекта.
-// Первый объект - обычные, вторые с шифтом
 export const codeOfBtnInLineEn = {
   1: [
     {
@@ -110,6 +48,7 @@ export const codeOfBtnInLineEn = {
       KeyP: 'p',
       BracketLeft: '[',
       BracketRight: ']',
+      Backslash: '\\',
     },
     {
       Tab: 'Tab',
@@ -125,6 +64,95 @@ export const codeOfBtnInLineEn = {
       KeyP: 'P',
       BracketLeft: '{',
       BracketRight: '}',
+      Backslash: '|',
+    },
+  ],
+  3: [
+    {
+      CapsLock: 'CapsLock',
+      KeyA: 'a',
+      KeyS: 's',
+      KeyD: 'd',
+      KeyF: 'f',
+      KeyG: 'g',
+      KeyH: 'h',
+      KeyJ: 'j',
+      KeyK: 'k',
+      KeyL: 'l',
+      Semicolon: ';',
+      Quote: "'",
+      Enter: 'Enter',
+    },
+    {
+      CapsLock: 'CapsLock',
+      KeyA: 'A',
+      KeyS: 'S',
+      KeyD: 'D',
+      KeyF: 'F',
+      KeyG: 'G',
+      KeyH: 'H',
+      KeyJ: 'J',
+      KeyK: 'K',
+      KeyL: 'L',
+      Semicolon: ':',
+      Quote: '"',
+      Enter: 'Enter',
+    },
+  ],
+  4: [
+    {
+      ShiftLeft: 'Shift',
+      KeyZ: 'z',
+      KeyX: 'x',
+      KeyC: 'c',
+      KeyV: 'v',
+      KeyB: 'b',
+      KeyN: 'n',
+      KeyM: 'm',
+      Comma: ',',
+      Period: '.',
+      Slash: '/',
+      ArrowUp: '▲',
+      ShiftRight: 'Shift',
+    },
+    {
+      ShiftLeft: 'Shift',
+      KeyZ: 'Z',
+      KeyX: 'X',
+      KeyC: 'C',
+      KeyV: 'V',
+      KeyB: 'B',
+      KeyN: 'N',
+      KeyM: 'M',
+      Comma: '<',
+      Period: '>',
+      Slash: '?',
+      ArrowUp: '▲',
+      ShiftRight: 'Shift',
+    },
+  ],
+  5: [
+    {
+      ControlLeft: 'Ctrl',
+      MetaRight: 'Win',
+      AltLeft: 'Alt',
+      Space: ' ',
+      AltRight: 'Alt',
+      ArrowLeft: '◄',
+      ArrowDown: '▼',
+      ArrowRight: '►',
+      ControlRight: 'Ctrl',
+    },
+    {
+      ControlLeft: 'Ctrl',
+      MetaRight: 'Win',
+      AltLeft: 'Alt',
+      Space: ' ',
+      AltRight: 'Alt',
+      ArrowLeft: '◄',
+      ArrowDown: '▼',
+      ArrowRight: '►',
+      ControlRight: 'Ctrl',
     },
   ],
 };
@@ -179,6 +207,7 @@ export const codeOfBtnInLineRu = {
       KeyP: 'з',
       BracketLeft: 'х',
       BracketRight: 'ъ',
+      Backslash: '\\',
     },
     {
       Tab: 'Tab',
@@ -194,34 +223,95 @@ export const codeOfBtnInLineRu = {
       KeyP: 'З',
       BracketLeft: 'Х',
       BracketRight: 'Ъ',
+      Backslash: '/',
+    },
+  ],
+  3: [
+    {
+      CapsLock: 'CapsLock',
+      KeyA: 'ф',
+      KeyS: 'ы',
+      KeyD: 'в',
+      KeyF: 'а',
+      KeyG: 'п',
+      KeyH: 'р',
+      KeyJ: 'о',
+      KeyK: 'л',
+      KeyL: 'д',
+      Semicolon: 'ж',
+      Quote: 'э',
+      Enter: 'Enter',
+    },
+    {
+      CapsLock: 'CapsLock',
+      KeyA: 'Ф',
+      KeyS: 'Ы',
+      KeyD: 'В',
+      KeyF: 'А',
+      KeyG: 'П',
+      KeyH: 'Р',
+      KeyJ: 'О',
+      KeyK: 'Л',
+      KeyL: 'Д',
+      Semicolon: 'Ж',
+      Quote: 'Э',
+      Enter: 'Enter',
+    },
+  ],
+  4: [
+    {
+      ShiftLeft: 'Shift',
+      KeyZ: 'я',
+      KeyX: 'ч',
+      KeyC: 'с',
+      KeyV: 'м',
+      KeyB: 'и',
+      KeyN: 'т',
+      KeyM: 'ь',
+      Comma: 'б',
+      Period: 'ю',
+      Slash: '.',
+      ArrowUp: '▲',
+      ShiftRight: 'Shift',
+    },
+    {
+      ShiftLeft: 'Shift',
+      KeyZ: 'Я',
+      KeyX: 'Ч',
+      KeyC: 'С',
+      KeyV: 'М',
+      KeyB: 'И',
+      KeyN: 'Т',
+      KeyM: 'Ь',
+      Comma: 'Б',
+      Period: 'Ю',
+      Slash: ',',
+      ArrowUp: '▲',
+      ShiftRight: 'Shift',
+    },
+  ],
+  5: [
+    {
+      ControlLeft: 'Ctrl',
+      MetaRight: 'Win',
+      AltLeft: 'Alt',
+      Space: ' ',
+      AltRight: 'Alt',
+      ArrowLeft: '◄',
+      ArrowDown: '▼',
+      ArrowRight: '►',
+      ControlRight: 'Ctrl',
+    },
+    {
+      ControlLeft: 'Ctrl',
+      MetaRight: 'Win',
+      AltLeft: 'Alt',
+      Space: ' ',
+      AltRight: 'Alt',
+      ArrowLeft: '◄',
+      ArrowDown: '▼',
+      ArrowRight: '►',
+      ControlRight: 'Ctrl',
     },
   ],
 };
-
-// console.log(Object.values(codeOfBtnInLineEn[1][0])[0]);
-
-/*
-const keyboardvalue = {};
-
-document.onkeydown = function (event) {
-  console.log(event);
-  const x = event.code;
-  const b = event.key;
-  keyboardvalue[x] = b;
-  console.log(keyboardvalue);
-};
-const codeOfBtnInFirdLineEn =
-const codeOfBtnInFirdLineRu = {
-const codeOfBtnInFirdLineEnShift =
-const codeOfBtnInFirdLineRuShift =
-
-const codeOfBtnInFourthLineEn =
-const codeOfBtnInFourthLineRu =
-const codeOfBtnInFourthLineEnShift =
-const codeOfBtnInFourthLineRuShift =
-
-const codeOfBtnInFifthLineEn =
-const codeOfBtnInFifthLineRu =
-const codeOfBtnInFifthLineEnShift =
-const codeOfBtnInFifthLineRuShift =
-*/

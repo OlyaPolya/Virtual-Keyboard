@@ -1,17 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 %font {
-  font-family: 'Neucha', cursive;
+  font-family: 'Roboto', sans-serif;
 }
 
 html {
-  cursor: url('../img/cursor.png'), default;
+  cursor: default;
 }
 
 body {
   @extend %font;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 100;
+  color: #ccc;
 }
 
 .wrapper {
@@ -25,11 +26,12 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-width: 1280px;
+  align-items: center;
+  width: 832px;
+  height: 1106px;
   margin: 0 auto;
-  border: 1px solid;
   text-align: center;
+  background-image: url('../img/mac.jpg');
 }
 
 .hidden {
@@ -41,21 +43,43 @@ body {
 }
 
 .inputField {
-  width: 600px;
+  width: 700px;
   height: 300px;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  &::placeholder {
+    color: rgb(155, 153, 153);
+    font-size: 18px;
+  }
+}
+
+.display {
+  margin-bottom: 220px;
 }
 
 .keyboard {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  justify-content: center;
+  max-width: 720px;
+  row-gap: 3px;
+  margin-bottom: 50px;
+  padding: 5px;
+}
+
+.inputField {
+  color: rgb(216, 214, 214);
+  @extend %font;
+  font-size: 18px;
+  font-weight: 100;
 }
 
 .lineBtns {
   display: flex;
   flex-direction: row;
-  gap: 3px;
-  justify-content: center;
+  justify-content: space-between;
+  column-gap: 3px;
 }
 
 .key {
@@ -63,12 +87,39 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  font-size: 14px;
   width: 40px;
   height: 40px;
-  border: 1px solid black;
-  border-radius: 17px;
+  background-color: black;
+  border-radius: 5px;
+  &[data='CapsLock'],
+  &[data='Tab'],
+  &[data='Backslash'] {
+    width: 75px;
+  }
+  &[data='ControlLeft'] {
+    width: 65px;
+  }
+  &[data='Backspace'] {
+    flex-grow: 0.5;
+  }
+  &[data='ShiftLeft'],
+  &[data='ShiftRight'] {
+    width: 83px;
+  }
+  &[data='Enter'] {
+    flex-grow: 0.5;
+  }
+  &[data='Space'] {
+    flex-grow: 1;
+  }
+  &[data='ControlRight'] {
+    width: 45px;
+  }
+  transition: all 0.5s ease-out;
 }
 
 .press {
-  background-color: palevioletred;
+  background-color: #999;
+  filter: brightness(110%);
 }

@@ -3,8 +3,12 @@ import './assets/styles/style.scss';
 import 'normalize.css';
 import * as buttonMeaning from './assets/KeyboardLayout';
 
-const currenLanguage = 'ru';
-const numberOfBtnsInLine = [14, 13];
+let currenLanguage = 'ru';
+if (localStorage.getItem('currenLanguage') !== null) {
+  currenLanguage = localStorage.getItem('currenLanguage');
+}
+
+const numberOfBtnsInLine = [14, 14, 13, 13, 9];
 const numberOfLine = numberOfBtnsInLine.length;
 
 function getButtonStatesEn(currentBtn, line) {
@@ -14,6 +18,7 @@ function getButtonStatesEn(currentBtn, line) {
 
   const spanUpper = document.createElement('span');
   spanUpper.className = 'uppercase';
+  spanUpper.classList.add('hidden');
   spanUpper.innerHTML = Object.values(buttonMeaning.codeOfBtnInLineEn[line][upper])[currentBtn];
 
   const spanLower = document.createElement('span');
@@ -22,10 +27,12 @@ function getButtonStatesEn(currentBtn, line) {
 
   const spanCapslock = document.createElement('span');
   spanCapslock.className = 'capslock';
+  spanCapslock.classList.add('hidden');
   spanCapslock.innerHTML = Object.values(buttonMeaning.codeOfBtnInLineEn[line][upper])[currentBtn];
 
   const spanShift = document.createElement('span');
   spanShift.className = 'shift';
+  spanShift.classList.add('hidden');
   spanShift.innerHTML = Object.values(buttonMeaning.codeOfBtnInLineEn[line][upper])[currentBtn];
 
   result.push(spanUpper, spanLower, spanCapslock, spanShift);
@@ -111,11 +118,13 @@ function createBodyTemplate(numberOfBtnsInLines, numberOfLines) {
   display.className = 'display';
   const title = document.createElement('p');
   title.className = 'title';
-  title.innerHTML = 'Персональный детский компьютер!';
+  title.innerHTML = '&nbsp';
 
   const inputField = document.createElement('textarea');
   inputField.className = 'inputField';
   inputField.autofocus = true;
+  inputField.style.resize = 'none';
+  inputField.placeholder = 'Для переключения языка используйте левые Ctrl + Shift.\r\nCоздана в операционной системе Windows ;)';
 
   display.append(title, inputField);
   keyboard.append(...getBtnLine(numberOfLines, numberOfBtnsInLines));
@@ -125,6 +134,10 @@ function createBodyTemplate(numberOfBtnsInLines, numberOfLines) {
 }
 
 createBodyTemplate(numberOfBtnsInLine, numberOfLine);
+const caps = document.querySelector('[data="CapsLock"] .ru');
+const caps2 = document.querySelector('[data="CapsLock"] .en');
+caps.classList.remove('ru');
+caps2.classList.remove('en');
 
 document.onkeydown = function makeBtnPressed(event) {
   event.preventDefault();
@@ -135,43 +148,56 @@ document.onkeydown = function makeBtnPressed(event) {
   }, 200);
 };
 
+function switchUpperCase() {
+  const currentlanguageRu = document.querySelectorAll('.ru');
+  const firstEl = 0;
+  const uppercaseClassRu = document.querySelectorAll('.ru .uppercase');
+  const lowercaseClassRU = document.querySelectorAll('.ru .lowercase');
+  const currentlanguageEn = document.querySelectorAll('.en');
+
+  const uppercaseClassEn = document.querySelectorAll('.en .uppercase');
+  const lowercaseClassEn = document.querySelectorAll('.en .lowercase');
+  if (!currentlanguageRu[firstEl].classList.contains('hidden')) {
+    uppercaseClassRu.forEach((el) => {
+      el.classList.toggle('hidden');
+    });
+    lowercaseClassRU.forEach((el) => {
+      el.classList.toggle('hidden');
+    });
+  }
+  if (!currentlanguageEn[firstEl].classList.contains('hidden')) {
+    uppercaseClassEn.forEach((el) => {
+      el.classList.toggle('hidden');
+    });
+    lowercaseClassEn.forEach((el) => {
+      el.classList.toggle('hidden');
+    });
+  }
+}
+
 function addTextToField(symbol) {
   const inpitField = document.querySelector('.inputField');
   if (symbol === 'Backspace') {
     inpitField.innerHTML = inpitField.innerHTML.slice(0, -1);
   } else if (symbol === 'Tab') {
     inpitField.innerHTML += '    ';
+  } else if (symbol === 'Win' || symbol === 'Alt' || symbol === 'Ctrl') {
+    inpitField.innerHTML += '';
+  } else if (symbol === 'Shift') {
+    inpitField.innerHTML += '';
+  } else if (symbol === 'Enter') {
+    inpitField.innerHTML += '\r\n';
+  } else if (symbol === 'CapsLock') {
+    inpitField.innerHTML += '';
+    switchUpperCase();
   } else {
     inpitField.innerHTML += symbol;
   }
   inpitField.focus();
   const selectionStart = inpitField.innerHTML.length;
   const selectionEnd = inpitField.innerHTML.length;
-  console.log(selectionEnd);
   inpitField.setSelectionRange(selectionStart, selectionEnd);
-  inpitField.onclick = () => {
-    // inpitField.setRangeText('ПРИВЕТ', inpitField.selectionStart, inpitField.selectionEnd, 'end');
-    inpitField.focus();
-    console.log('сработало');
-    console.log(inpitField.selectionEnd);
-    inpitField.setRangeText('ПРИВЕТ', inpitField.selectionStart, inpitField.selectionEnd, 'end');
-    console.log(inpitField.selectionEnd);
-    console.log(document.getElementsByClassName('inputField'));
-  };
 }
-/*
-document.querySelector('.inputField').onfocus = () => {
-  setTimeout(() => {
-    document.querySelector('.inputField').setSelectionRange(0, 1);
-  });
-};
-document.querySelector('textarea').addEventListener('focus', function thf() {
-  // this.select();
-  this.focus();
-  this.selectionStart = 10;
-  console.log(document.querySelector('.inputField'));
-});
-*/
 
 function getSymbolFromVirtualKeyboard(item) {
   if (item.childNodes[0].classList.contains('hidden')) {
@@ -203,20 +229,68 @@ function getSymbolFromVirtualKeyboard(item) {
   }
 }
 
-document.querySelectorAll('.key').forEach((item) => {
-  item.addEventListener('click', () => {
-    item.getAttribute('data');
-    item.classList.add('press');
-    getSymbolFromVirtualKeyboard(item);
-    setTimeout(() => {
-      item.classList.remove('press');
-    }, 200);
+function listenClickAtVirtKeyboard() {
+  document.querySelectorAll('.key').forEach((item) => {
+    item.addEventListener('click', () => {
+      item.getAttribute('data');
+      item.classList.add('press');
+      getSymbolFromVirtualKeyboard(item);
+      setTimeout(() => {
+        item.classList.remove('press');
+      }, 200);
+    });
   });
-});
+}
+listenClickAtVirtKeyboard();
 
 document.onkeyup = function catchSymbolFromRealKeyboard(event) {
   getSymbolFromVirtualKeyboard(document.querySelector(`[data='${event.code}']`));
 };
+
+function changeKeyboardLayout() {
+  const currenLanguageEn = document.querySelectorAll('.en');
+  const classesEn = document.querySelectorAll('.en span');
+  const currenLanguageRU = document.querySelectorAll('.ru');
+  currenLanguageEn.forEach((en) => {
+    if (en.classList.contains('hidden')) {
+      currenLanguageRU.forEach((ru) => {
+        ru.classList.add('hidden');
+      });
+      en.classList.remove('hidden');
+      classesEn.forEach((item) => {
+        if (item.classList.contains('uppercase') || item.classList.contains('capslock') || item.classList.contains('shift')) {
+          item.classList.add('hidden');
+        }
+      });
+      localStorage.setItem('currenLanguage', 'en');
+    } else {
+      en.classList.add('hidden');
+      currenLanguageRU.forEach((ru) => {
+        ru.classList.remove('hidden');
+      });
+      localStorage.setItem('currenLanguage', 'ru');
+    }
+  });
+}
+
+function startLanguageChange(...codes) {
+  const btnCodes = new Set();
+  document.addEventListener('keydown', (event) => {
+    btnCodes.add(event.code);
+    // eslint-disable-next-line no-restricted-syntax
+    for (const code of codes) {
+      if (!btnCodes.has(code)) {
+        return;
+      }
+    }
+    btnCodes.clear();
+    changeKeyboardLayout();
+  });
+  document.addEventListener('keyup', (event) => {
+    btnCodes.delete(event.code);
+  });
+}
+startLanguageChange('ControlLeft', 'ShiftLeft');
 
 document.querySelector('textarea').addEventListener('click', (event) => {
   event.preventDefault();
