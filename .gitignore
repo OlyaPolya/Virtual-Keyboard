@@ -1,2 +1,8 @@
 virtual-keyboard/*
 !virtual-keyboard/dist
+virtual-keyboard/src
+virtual-keyboard/.eslintignore
+virtual-keyboard/.eslintrc.js
+virtual-keyboard/package-lock.json
+virtual-keyboard/package.json
+virtual-keyboard/webpack.config.js
